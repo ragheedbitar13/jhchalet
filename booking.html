@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julie Home - الحجوزات</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --copper: #C17F5A;
+  --copper-light: #D4956E;
+  --green-dark: #1A4A2E;
+  --green-mid: #2E6B45;
+  --sky: #7EC8D4;
+  --cream: #FAF7F2;
+  --warm-white: #FEFCF9;
+  --charcoal: #2C2C2C;
+  --gray: #6B6B6B;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Tajawal', sans-serif; background: var(--warm-white); color: var(--charcoal); overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 40px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(193,127,90,0.15);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo img { height: 48px; width: 48px; object-fit: contain; }
+.nav-logo span { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--green-dark); font-weight: 700; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--charcoal); font-size: 15px; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--copper); }
+.nav-back {
+  background: var(--green-dark); color: white !important;
+  padding: 9px 20px; border-radius: 6px; font-weight: 600 !important;
+  transition: background 0.2s !important;
+}
+.nav-back:hover { background: var(--green-mid) !important; }
+
+/* HERO - BOOKING */
+.booking-hero {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 80px);
+}
+.hero-left {
+  background: var(--green-dark);
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.hero-left::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 350px; height: 350px;
+  background: rgba(193,127,90,0.1);
+  border-radius: 50%;
+}
+.hero-left::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 250px; height: 250px;
+  background: rgba(126,200,212,0.08);
+  border-radius: 50%;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(193,127,90,0.2);
+  border: 1px solid var(--copper-light);
+  color: #F2C99E;
+  padding: 5px 16px; border-radius: 30px;
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 28px; width: fit-content;
+}
+.hero-left h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.25;
+  margin-bottom: 20px;
+}
+.hero-left p {
+  opacity: 0.75; font-size: 16px; line-height: 1.8; margin-bottom: 40px;
+}
+.mini-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  position: relative; z-index: 1;
+}
+.mini-gallery img {
+  width: 100%; height: 120px; object-fit: cover; border-radius: 8px;
+  border: 2px solid rgba(255,255,255,0.1);
+  transition: transform 0.3s;
+}
+.mini-gallery img:first-child {
+  grid-column: 1 / -1; height: 160px;
+}
+.mini-gallery img:hover { transform: scale(1.02); }
+
+/* BOOKING FORM SIDE */
+.hero-right {
+  background: var(--cream);
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+}
+.form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--green-dark);
+  margin-bottom: 8px;
+}
+.form-sub {
+  color: var(--gray); font-size: 15px; margin-bottom: 36px;
+}
+.copper-line {
+  width: 48px; height: 3px;
+  background: linear-gradient(90deg, var(--copper), var(--sky));
+  border-radius: 2px; margin-bottom: 36px;
+}
+
+/* FORM */
+.form-group {
+  margin-bottom: 22px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-dark);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+label span.req { color: var(--copper); margin-right: 2px; }
+
+input, select, textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid #E0D8CF;
+  border-radius: 8px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 15px;
+  background: white;
+  color: var(--charcoal);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  direction: rtl;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--copper);
+  box-shadow: 0 0 0 3px rgba(193,127,90,0.12);
+}
+textarea { resize: vertical; min-height: 90px; }
+select { cursor: pointer; }
+
+.price-box {
+  background: white;
+  border: 1.5px solid rgba(193,127,90,0.25);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.price-label { font-size: 14px; color: var(--gray); }
+.price-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: var(--green-dark);
+  font-weight: 700;
+}
+.price-note { font-size: 12px; color: var(--gray); margin-top: 2px; text-align: left; }
+
+.btn-submit {
+  width: 100%;
+  background: var(--green-dark);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 8px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.btn-submit:hover {
+  background: var(--green-mid);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(26,74,46,0.3);
+}
+
+.btn-whatsapp {
+  width: 100%;
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.btn-whatsapp:hover {
+  background: #1ebe57;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(37,211,102,0.3);
+}
+
+.form-divider {
+  display: flex; align-items: center; gap: 12px; margin: 16px 0;
+  color: var(--gray); font-size: 13px;
+}
+.form-divider::before, .form-divider::after {
+  content: ''; flex: 1; height: 1px; background: #E0D8CF;
+}
+
+/* SUCCESS MESSAGE */
+.success-msg {
+  display: none;
+  background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+  color: white;
+  padding: 32px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 20px;
+}
+.success-msg.show { display: block; animation: fadeIn 0.4s ease; }
+.success-icon { font-size: 48px; margin-bottom: 12px; }
+.success-msg h3 { font-size: 22px; margin-bottom: 8px; }
+.success-msg p { opacity: 0.85; font-size: 15px; }
+
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+/* POLICIES */
+.policies {
+  background: white;
+  padding: 80px 40px;
+}
+.policies-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+.section-label { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--copper); font-weight: 600; margin-bottom: 12px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--green-dark); margin-bottom: 40px; }
+.policies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+.policy-card {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 28px 24px;
+  border-right: 4px solid var(--copper);
+}
+.policy-icon { font-size: 30px; margin-bottom: 12px; }
+.policy-title { font-weight: 700; font-size: 16px; color: var(--green-dark); margin-bottom: 8px; }
+.policy-text { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+/* FOOTER */
+footer {
+  background: #111; padding: 28px 40px;
+  text-align: center; color: rgba(255,255,255,0.4); font-size: 13px;
+}
+footer a { color: var(--copper-light); text-decoration: none; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .booking-hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 40px 24px; min-height: 50vh; }
+  .hero-right { padding: 40px 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://ragheedbitar13.github.io/jhchalet" class="nav-logo">
+    <img src="" alt="Julie Home">
+    <span>Julie Home</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">عن الشاليه</a></li>
+    <li><a href="index.html#gallery">الصور</a></li>
+    <li><a href="index.html#amenities">المميزات</a></li>
+    <li><a href="index.html" class="nav-back">← الرئيسية</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN BOOKING LAYOUT -->
+<div class="booking-hero">
+
+  <!-- LEFT: INFO + MINI GALLERY -->
+  <div class="hero-left">
+    <div class="hero-badge">✦ احجز الآن ✦</div>
+    <h1>ليلة لا تُنسى تبدأ من هنا</h1>
+    <p>احجز شاليه Julie Home واستمتع بمسبح خاص، شواء، وأجواء عائلية دافئة.</p>
+    <img src="" alt="المسبح ليلاً" style="width:100%;height:280px;object-fit:cover;border-radius:14px;border:3px solid rgba(255,255,255,0.15);margin-top:16px;">
+  </div>
+
+  <!-- RIGHT: BOOKING FORM -->
+  <div class="hero-right">
+    <div class="form-title">نموذج الحجز</div>
+    <p class="form-sub">أكمل البيانات وسنتواصل معك خلال ساعات</p>
+    <div class="copper-line"></div>
+
+    <div id="booking-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label><span class="req">*</span> الاسم الكامل</label>
+          <input type="text" id="name" placeholder="محمد أحمد">
+        </div>
+        <div class="form-group">
+          <label><span class="req">*</span> رقم الهاتف</label>
+          <input type="tel" id="phone" placeholder="+962 7X XXX XXXX">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label><span class="req">*</span> تاريخ الوصول</label>
+          <input type="date" id="checkin">
+        </div>
+        <div class="form-group">
+          <label><span class="req">*</span> تاريخ المغادرة</label>
+          <input type="date" id="checkout">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>عدد الأشخاص</label>
+          <select id="guests">
+            <option value="">اختر...</option>
+            <option>2 - 4 أشخاص</option>
+            <option>5 - 8 أشخاص</option>
+            <option>9 - 12 شخص</option>
+            <option>أكثر من 12</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>مناسبة الزيارة</label>
+          <select id="occasion">
+            <option value="">اختر...</option>
+            <option>عائلية</option>
+            <option>عيد ميلاد</option>
+            <option>خطوبة / زفاف</option>
+            <option>تجمع أصدقاء</option>
+            <option>أخرى</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>ملاحظات أو طلبات خاصة</label>
+        <textarea id="notes" placeholder="أي طلبات أو استفسارات تخص الحجز..."></textarea>
+      </div>
+
+      <div class="price-box">
+        <div>
+          <div class="price-label">السعر ابتداءً من</div>
+          <div class="price-value" id="price-display">تواصل للسعر</div>
+          <div class="price-note">يشمل المسبح والشواء</div>
+        </div>
+        <div style="font-size: 48px;">🏡</div>
+      </div>
+
+      <button class="btn-submit" onclick="submitBooking()">
+        📋 إرسال طلب الحجز
+      </button>
+
+      <div class="form-divider">أو تواصل مباشرة</div>
+
+      <a href="https://wa.me/962796661155?text=مرحبا، أريد الاستفسار عن حجز شاليه Julie Home" 
+         class="btn-whatsapp" target="_blank">
+        <span style="font-size:22px;">💬</span>
+        احجز عبر واتساب
+      </a>
+    </div>
+
+    <div class="success-msg" id="success-msg">
+      <div class="success-icon">✅</div>
+      <h3>تم استلام طلبك!</h3>
+      <p>سنتواصل معك قريباً على الرقم المُدخل لتأكيد الحجز.</p>
+    </div>
+  </div>
+</div>
+
+<!-- POLICIES -->
+<div class="policies">
+  <div class="policies-inner">
+    <div class="section-label">سياسات الشاليه</div>
+    <h2 class="section-title">ما يجب معرفته قبل الحجز</h2>
+    <div class="policies-grid">
+      <div class="policy-card">
+        <div class="policy-icon">🕐</div>
+        <div class="policy-title">أوقات الوصول والمغادرة</div>
+        <div class="policy-text">الوصول من الساعة 3 عصراً، المغادرة حتى الساعة 12 ظهراً. يمكن التنسيق للوصول المبكر.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">💰</div>
+        <div class="policy-title">سياسة الدفع</div>
+        <div class="policy-text">يُدفع مقدم الحجز مسبقاً لتأكيد الموعد، والمبلغ المتبقي عند الوصول.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">🚫</div>
+        <div class="policy-title">الإلغاء والاسترداد</div>
+        <div class="policy-text">الإلغاء قبل 48 ساعة: استرداد كامل. الإلغاء قبل 24 ساعة: استرداد 50%.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">🏊</div>
+        <div class="policy-title">المسبح والمرافق</div>
+        <div class="policy-text">المسبح متاح طوال فترة الإقامة. يُرجى الالتزام بقواعد السلامة خاصةً مع الأطفال.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">🐾</div>
+        <div class="policy-title">الحيوانات الأليفة</div>
+        <div class="policy-text">لا يُسمح بإحضار الحيوانات الأليفة داخل الشاليه للحفاظ على النظافة.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">🔇</div>
+        <div class="policy-title">الهدوء والاحترام</div>
+        <div class="policy-text">يُرجى الالتزام بهدوء معقول بعد منتصف الليل احتراماً للجيران.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Julie Home — جميع الحقوق محفوظة &nbsp;|&nbsp; 
+     <a href="https://www.instagram.com/julie_home_chalet/">@julie_home_chalet</a>
+  </p>
+</footer>
+
+<script>
+  // Set min date to today
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('checkin').min = today;
+  document.getElementById('checkout').min = today;
+
+  document.getElementById('checkin').addEventListener('change', function() {
+    document.getElementById('checkout').min = this.value;
+  });
+
+  function submitBooking() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const checkin = document.getElementById('checkin').value;
+    const checkout = document.getElementById('checkout').value;
+
+    if (!name || !phone || !checkin || !checkout) {
+      alert('الرجاء تعبئة الحقول الإلزامية (الاسم، الهاتف، التواريخ)');
+      return;
+    }
+
+    // Build WhatsApp message
+    const guests = document.getElementById('guests').value || 'غير محدد';
+    const occasion = document.getElementById('occasion').value || 'غير محدد';
+    const notes = document.getElementById('notes').value || 'لا يوجد';
+
+    const msg = `مرحباً، أريد حجز شاليه Julie Home 🏡
+    
+الاسم: ${name}
+الهاتف: ${phone}
+تاريخ الوصول: ${checkin}
+تاريخ المغادرة: ${checkout}
+عدد الأشخاص: ${guests}
+المناسبة: ${occasion}
+ملاحظات: ${notes}`;
+
+    // Show success
+    document.getElementById('booking-form').style.opacity = '0.4';
+    document.getElementById('booking-form').style.pointerEvents = 'none';
+    document.getElementById('success-msg').classList.add('show');
+
+    // Open WhatsApp after short delay
+    setTimeout(() => {
+      window.open('https://wa.me/962796661155?text=' + encodeURIComponent(msg), '_blank');
+    }, 1000);
+  }
+</script>
+</body>
+</html>
