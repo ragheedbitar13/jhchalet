@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julie Home - شاليه فاخر</title>
+ <link rel="icon" type="https://i.ibb.co/kg5d7Zrj/Gemini-Generated-Image-kfj9c9kfj9c9kfj9-removebg-preview.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --copper: #C17F5A;
+    --copper-light: #D4956E;
+    --green-dark: #1A4A2E;
+    --green-mid: #2E6B45;
+    --sky: #7EC8D4;
+    --cream: #FAF7F2;
+    --warm-white: #FEFCF9;
+    --charcoal: #2C2C2C;
+    --gray: #6B6B6B;
+    --gold: #B8924A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ─── انميشن انتقال الصفحة الجديد (باللوجو فقط) ─── */
+  .page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(254, 252, 249, 0.95); /* خلفية بيضاء دافئة ناعمة شبه شفافة */
+    backdrop-filter: blur(8px); /* تأثير ضبابي للخلفية */
+    z-index: 9999;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .transition-logo {
+    width: 160px; /* حجم اللوجو أثناء الانتقال */
+    height: 160px;
+    object-fit: contain;
+    transform: scale(1);
+    transition: transform 0.5s ease-in-out;
+    animation: logoPulse 1.5s infinite ease-in-out;
+  }
+
+  /* عند اختفاء شاشة الانتقال */
+  .page-transition-overlay.fade-out {
+    opacity: 0;
+  }
+  .page-transition-overlay.fade-out .transition-logo {
+    transform: scale(0.8);
+  }
+
+  /* تأثير نبض خفيف للوجو ليعطي إيحاء بالتحميل */
+  @keyframes logoPulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.08); opacity: 1; }
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(193,127,90,0.15);
+    transition: box-shadow 0.3s, transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+
+  nav.nav-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    height: 52px;
+    width: 52px;
+    object-fit: contain;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--charcoal);
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    right: 0;
+    width: 0;
+    height: 2px;
+    background: var(--copper);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--copper); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-links li .nav-cta {
+    background: var(--green-dark);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .nav-links li .nav-cta:hover { 
+    background: var(--green-mid); 
+    color: white;
+    transform: translateY(-1px);
+  }
+  
+  .nav-links li .nav-cta::after { display: none; }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(to bottom, rgba(26,74,46,0.55) 0%, rgba(26,74,46,0.3) 50%, rgba(0,0,0,0.6) 100%),
+      url('https://i.ibb.co/BKSN7swh/1232344.jpg') center/cover no-repeat;
+  }
+
+  .hero-content {
+    position: relative;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(193,127,90,0.25);
+    border: 1px solid var(--copper-light);
+    color: #F2C99E;
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 24px;
+    filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4));
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 300;
+    opacity: 0.9;
+    margin-bottom: 40px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--copper);
+    color: white;
+    padding: 14px 36px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(193,127,90,0.4);
+  }
+
+  .btn-primary:hover {
+    background: var(--copper-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(193,127,90,0.5);
+  }
+
+  .btn-outline {
+    border: 2px solid rgba(255,255,255,0.7);
+    color: white;
+    padding: 12px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+  }
+
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: white;
+  }
+
+ .btn-map {
+    border: 2px solid rgba(255,255,255,0.7);
+    color: white;
+    background: transparent;
+    padding: 12px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .scroll-arrow {
+    width: 24px;
+    height: 24px;
+    border-right: 2px solid rgba(255,255,255,0.6);
+    border-bottom: 2px solid rgba(255,255,255,0.6);
+    transform: rotate(45deg);
+    animation: bounce 1.8s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(6px); }
+  }
+
+  /* FEATURES STRIP */
+  .features-strip {
+    background: var(--green-dark);
+    padding: 28px 40px;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+  }
+
+  .feature-icon {
+    font-size: 28px;
+  }
+
+  .feature-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feature-label {
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  .feature-value {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 90px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--copper);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--green-dark);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .section-desc {
+    color: var(--gray);
+    font-size: 17px;
+    line-height: 1.8;
+    max-width: 640px;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-images {
+    position: relative;
+    height: 520px;
+  }
+
+  .about-img-main {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 78%;
+    height: 75%;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+
+  .about-img-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 55%;
+    height: 50%;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+    border: 4px solid white;
+  }
+
+  .copper-line {
+    width: 48px;
+    height: 3px;
+    background: var(--copper);
+    border-radius: 2px;
+    margin: 24px 0;
+  }
+
+  /* GALLERY */
+  .gallery-section {
+    background: var(--cream);
+    padding: 90px 40px;
+  }
+
+  .gallery-header {
+    max-width: 1200px;
+    margin: 0 auto 48px;
+  }
+
+  .gallery-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+
+  .gallery-item {
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .gallery-item:first-child {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    display: block;
+  }
+
+  .gallery-item:first-child img {
+    height: 420px;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.04);
+  }
+
+ .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,74,46,0.5) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+  }
+
+  .gallery-item:hover .gallery-overlay {
+    opacity: 1;
+  }
+
+  .gallery-overlay span {
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  /* AMENITIES */
+  .amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+    margin-top: 48px;
+  }
+
+  .amenity-card {
+    background: white;
+    border: 1px solid rgba(193,127,90,0.15);
+    border-radius: 12px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .amenity-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--copper), var(--sky));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .amenity-card:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    transform: translateY(-4px);
+  }
+
+  .amenity-card:hover::before { transform: scaleX(1); }
+
+  .amenity-icon { font-size: 40px; margin-bottom: 16px; display: block; }
+  .amenity-name { font-weight: 600; font-size: 17px; color: var(--green-dark); margin-bottom: 8px; }
+  .amenity-desc { font-size: 14px; color: var(--gray); line-height: 1.6; }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--copper), transparent);
+    margin: 0 40px;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--green-dark);
+    padding: 90px 40px;
+    text-align: center;
+    color: white;
+  }
+
+  .contact-section .section-label { color: var(--copper-light); }
+  .contact-section .section-title { color: white; margin: 0 auto 16px; }
+  .contact-section .section-desc { color: rgba(255,255,255,0.7); margin: 0 auto 56px; text-align: center; }
+
+  .contact-cards {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .contact-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 32px 28px;
+    min-width: 200px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    max-width: 220px;
+  }
+
+  .contact-card:hover {
+    background: rgba(255,255,255,0.14);
+    transform: translateY(-4px);
+    border-color: var(--copper-light);
+  }
+
+  .contact-card-icon {
+    font-size: 36px; width: 68px; height: 68px;
+    background: rgba(193,127,90,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .contact-card-label { font-size: 13px; opacity: 0.65; }
+  .contact-card-value { font-size: 15px; font-weight: 600; text-align: center; }
+
+  footer {
+    background: #111;
+    padding: 32px 40px;
+    text-align: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 13px;
+  }
+
+  footer a { color: var(--copper-light); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-images { height: 320px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:first-child { grid-column: 1 / -1; }
+    section { padding: 60px 20px; }
+    .gallery-section { padding: 60px 20px; }
+    .contact-section { padding: 60px 20px; }
+    .features-strip { gap: 28px; padding: 24px 20px; }
+  }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 8px; }
+  .lightbox-close {
+    position: absolute; top: 24px; left: 24px; font-size: 32px; color: white; cursor: pointer;
+    background: rgba(255,255,255,0.1); border-radius: 50%; width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- شاشة الانتقال الذكية مع لوجو المزرعة المفرغ -->
+<div class="page-transition-overlay" id="pageOverlay">
+  <img src="https://i.ibb.co/Q724CFgC/Gemini-Generated-Image-kfj9c9kfj9c9kfj9.png" alt="Julie Home" class="transition-logo">
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="https://i.ibb.co/Q724CFgC/Gemini-Generated-Image-kfj9c9kfj9c9kfj9.png" alt="Julie Home Logo">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">عن الشاليه</a></li>
+    <li><a href="#gallery">الصور</a></li>
+    <li><a href="#amenities">المميزات</a></li>
+    <li><a href="#contact">تواصل معنا</a></li>
+    <li><a href="julie_home_booking.html" class="nav-cta transition-link">احجز الآن</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    
+    <div class="hero-badge">✦ شاليه فاخر للإيجار ✦</div>
+    <h1>Julie Home</h1>
+    <p>استمتع بتجربة إقامة لا تُنسى — مسبح خاص، شواء، وأجواء تجمع العائلة</p>
+    <div class="hero-buttons">
+      <a href="#gallery" class="btn-outline">شاهد الصور</a>
+      <a href="julie_home_booking.html" class="btn-primary transition-link">احجز الآن</a>
+      <a href="https://maps.app.goo.gl/whp2ih3kAC4UhD3r6" target="_blank" class="btn-map">موقعنا</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>اكتشف</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+<!-- FEATURES STRIP -->
+<div class="features-strip">
+  <div class="feature-item">
+    <span class="feature-icon">🏊</span>
+    <div class="feature-text">
+      <span class="feature-label">مسبح خاص</span>
+      <span class="feature-value">مفتوح طوال اليوم</span>
+    </div>
+  </div>
+  <div class="feature-item">
+    <span class="feature-icon">🔥</span>
+    <div class="feature-text">
+      <span class="feature-label">منطقة شواء</span>
+      <span class="feature-value">مجهزة بالكامل</span>
+    </div>
+  </div>
+  <div class="feature-item">
+    <span class="feature-icon">🛏️</span>
+    <div class="feature-text">
+      <span class="feature-label">غرف مريحة</span>
+      <span class="feature-value">تكييف وأثاث حديث</span>
+    </div>
+  </div>
+  <div class="feature-item">
+    <span class="feature-icon">🌙</span>
+    <div class="feature-text">
+      <span class="feature-label">أجواء ليلية</span>
+      <span class="feature-value">إضاءة ساحرة</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-images">
+      <img src="https://i.ibb.co/KcdK3MyS/Whats-App-Image-2026-06-13-at-3-02-41-PM.jpg" alt="مسبح Julie Home" class="about-img-main" onerror="this.src='https://images.unsplash.com/photo-1575429198097-04144ec08e8cd?w=600'">
+      <img src="https://i.ibb.co/jZ5ggv2m/Whats-App-Image-2026-06-13-at-3-02-41-PM-2.jpg" alt="منطقة الشواء" class="about-img-accent" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400'">
+        </div>
+    <div>
+      <div class="section-label">من نحن</div>
+      <h2 class="section-title">مكانك المثالي للراحة والاستجمام</h2>
+      <div class="copper-line"></div>
+      <p class="section-desc">
+        شاليه Julie Home وجهتك الأولى للاستمتاع بوقت مميز مع عائلتك وأصدقائك.
+        يضم الشاليه مسبحاً خاصاً رائعاً، منطقة شواء احترافية، غرف نوم مريحة مكيفة،
+        وصالة مجهزة بأفضل المعدات — كل ما تحتاجه لقضاء وقت لا يُنسى.
+      </p>
+      <div style="margin-top: 32px; display: flex; gap: 40px; flex-wrap: wrap;">
+        <div>
+          <div style="font-size: 2rem; font-weight: 700; color: var(--copper); font-family: 'Playfair Display', serif;">★★★★★</div>
+          <div style="font-size: 14px; color: var(--gray); margin-top: 4px;">تقييم ممتاز</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: 700; color: var(--green-dark); font-family: 'Playfair Display', serif;">100%</div>
+          <div style="font-size: 14px; color: var(--gray); margin-top: 4px;">خصوصية تامة</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<div class="gallery-section" id="gallery">
+  <div class="gallery-header">
+    <div class="section-label">معرض الصور</div>
+    <h2 class="section-title">شاهد الشاليه بنفسك</h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <a href="https://ibb.co/dwP638QC"><img src="https://i.ibb.co/gLSwXkDq/image1.jpg" alt="image1" border="0"></a>
+      <div class="gallery-overlay"><span>المسبح ليلاً</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <a href="https://ibb.co/8D1S9SNv"><img src="https://i.ibb.co/gMkBJBmq/1223.jpg" alt="1223" border="0"></a>
+      <div class="gallery-overlay"><span>كراسي الأسترخاء</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <a href="https://ibb.co/qM9sL9mr"><img src="https://i.ibb.co/svQwpQsV/Gemini-Generated-Image-pouxappouxappoux.png" alt="Gemini-Generated-Image-pouxappouxappoux" border="0"></a>
+      <div class="gallery-overlay"><span>المسبح نهاراً</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <a href="https://ibb.co/KxgtQwYQ"><img src="https://i.ibb.co/GQDZ1TX1/Whats-App-Image-2026-06-13-at-3-02-41-PM-3.jpg" alt="Whats-App-Image-2026-06-13-at-3-02-41-PM-3" border="0"></a>
+      <div class="gallery-overlay"><span>غرفة النوم</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <a href="https://ibb.co/rf4DTLN5"><img src="https://i.ibb.co/4gPh9D34/Whats-App-Image-2026-06-13-at-3-02-41-PM-4.jpg" alt="Whats-App-Image-2026-06-13-at-3-02-41-PM-4" border="0"></a>
+      <div class="gallery-overlay"><span>الصالة</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <a href="https://ibb.co/QjX9dYK4"><img src="https://i.ibb.co/mFSJ8hc3/Whats-App-Image-2026-06-13-at-3-02-42-PM.jpg" alt="Whats-App-Image-2026-06-13-at-3-02-42-PM" border="0"></a>
+      <div class="gallery-overlay"><span>منطقة الشواء</span></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="divider"></div>
+
+<!-- AMENITIES -->
+<section id="amenities">
+  <div style="text-align: center; margin-bottom: 0;">
+    <div class="section-label" style="text-align:center;">ما يميزنا</div>
+    <h2 class="section-title" style="text-align:center; max-width: 100%;">كل ما تحتاجه في مكان واحد</h2>
+  </div>
+  <div class="amenities-grid">
+    <div class="amenity-card">
+      <span class="amenity-icon">🏊‍♂️</span>
+      <div class="amenity-name">مسبح خاص</div>
+      <div class="amenity-desc">مسبح كبير ونظيف مع شبكة كرة الماء وإضاءة ليلية ساحرة</div>
+    </div>
+    <div class="amenity-card">
+      <span class="amenity-icon">🔥</span>
+      <div class="amenity-name">شواء احترافي</div>
+      <div class="amenity-desc">منطقة شواء مجهزة مع مدخنة وتهوية ممتازة</div>
+    </div>
+    <div class="amenity-card">
+      <span class="amenity-icon">🛋️</span>
+      <div class="amenity-name">صالة مريحة</div>
+      <div class="amenity-desc">صالة فسيحة بأثاث حديث وتكييف مركزي</div>
+    </div>
+    <div class="amenity-card">
+      <span class="amenity-icon">🛏️</span>
+      <div class="amenity-name">غرف نوم فاخرة</div>
+      <div class="amenity-desc">غرف هادئة بتكييف مستقل وفرشة مريحة</div>
+    </div>
+    <div class="amenity-card">
+      <span class="amenity-icon">☀️</span>
+      <div class="amenity-name">كراسي استرخاء</div>
+      <div class="amenity-desc">كراسي شمسية مريحة بجانب المسبح للاسترخاء</div>
+    </div>
+    <div class="amenity-card">
+      <span class="amenity-icon">🌿</span>
+      <div class="amenity-name">حديقة خضراء</div>
+      <div class="amenity-desc">محيط طبيعي بنباتات خضراء وأجواء منعشة</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="section-label">تواصل معنا</div>
+  <h2 class="section-title">احجز وقتك الآن</h2>
+  <p class="section-desc">نحن هنا لمساعدتك في حجز تجربتك المثالية — تواصل معنا عبر أي وسيلة تناسبك</p>
+
+  <div class="contact-cards">
+    <a href="https://www.instagram.com/julie_home_chalet/" target="_blank" class="contact-card">
+      <div class="contact-card-icon">📸</div>
+      <span class="contact-card-label">إنستغرام</span>
+      <span class="contact-card-value">@julie_home_chalet</span>
+    </a>
+    <a href="https://wa.me/962796661155" target="_blank" class="contact-card">
+      <div class="contact-card-icon">💬</div>
+      <span class="contact-card-label">واتساب</span>
+      <span class="contact-card-value">تواصل فوري</span>
+    </a>
+    <a href="https://www.facebook.com/JHchalet" target="_blank" class="contact-card">
+      <div class="contact-card-icon">👥</div>
+      <span class="contact-card-label">فيسبوك</span>
+      <span class="contact-card-value">Julie Home</span>
+    </a>
+    <a href="mailto:jhchalet.info@gmail.com" class="contact-card">
+      <div class="contact-card-icon">✉️</div>
+      <span class="contact-card-label">البريد الإلكتروني</span>
+      <span class="contact-card-value">راسلنا الآن</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Julie Home — جميع الحقوق محفوظة</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  // تأثير تلاشي شاشة الانتقال عند تحميل الصفحة الرئيسية
+  window.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('pageOverlay');
+    setTimeout(() => {
+      overlay.classList.add('fade-out');
+    }, 400); // مهلة قصيرة لإعطاء فخامة للحركة
+  });
+
+  // التقاط حدث الانتقال لصفحة الحجز لإظهار اللوجو بسلاسة مجدداً
+  document.querySelectorAll('.transition-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetUrl = this.getAttribute('href');
+      const overlay = document.getElementById('pageOverlay');
+      
+      overlay.classList.remove('fade-out');
+      
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 500);
+    });
+  });
+
+
+
+  // Lightbox
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+ // Smooth reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.amenity-card, .contact-card, .gallery-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+ let lastScrollY = window.scrollY;
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  const currentY = window.scrollY;
+  if (currentY > lastScrollY && currentY > 80) {
+    navbar.classList.add('nav-hidden');    // سكرول لتحت = يختفي
+  } else {
+    navbar.classList.remove('nav-hidden'); // سكرول لفوق = يطلع
+  }
+  navbar.classList.toggle('scrolled', currentY > 50);
+  lastScrollY = currentY;
+});
+
+</script>
+</body>
+</html>
