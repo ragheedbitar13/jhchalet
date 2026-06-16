@@ -285,8 +285,13 @@
   .contact-cards { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
   .contact-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 32px 28px; min-width: 200px; text-decoration: none; color: white; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 12px; flex: 1; max-width: 220px; }
   .contact-card:hover { background: rgba(255,255,255,0.14); transform: translateY(-4px); border-color: var(--copper-light); }
-  .contact-card-icon { font-size: 36px; width: 68px; height: 68px; background: rgba(193,127,90,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-  .contact-card-label { font-size: 13px; opacity: 0.65; }
+  
+  /* ستايل اللوقو الجديد المتناسق مع الكاردز */
+  .contact-card-logo { width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)); }
+  .contact-card-icon { width: 68px; height: 68px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+  .contact-card:hover .contact-card-icon { background: rgba(193,127,90,0.2); }
+  
+  .contact-card-label { font-size: 13px; opacity: 0.65; margin-top: 4px; }
   .contact-card-value { font-size: 15px; font-weight: 600; text-align: center; }
 
   footer { background: #111; padding: 32px 40px; text-align: center; color: rgba(255,255,255,0.4); font-size: 13px; }
@@ -399,7 +404,7 @@
     <span class="feature-icon">🔥</span>
     <div class="feature-text">
       <span class="feature-label">منطقة شواء</span>
-      <span class="feature-value">مجهزة بالكامل</span>
+      <span class="feature-value">مجهة بالكامل</span>
     </div>
   </div>
   <div class="feature-item">
@@ -457,7 +462,6 @@
     <h2 class="section-title">شاهد الشاليه بنفسك</h2>
   </div>
   <div class="gallery-grid">
-    <!-- تم حذف وسوم الروابط المكسورة لفتح اللايتبوكس بشكل سليم -->
     <div class="gallery-item" onclick="openLightbox(this)">
       <img src="https://i.ibb.co/gLSwXkDq/image1.jpg" alt="المسبح ليلاً">
       <div class="gallery-overlay"><span>المسبح ليلاً</span></div>
@@ -529,7 +533,7 @@
 
 <div class="divider"></div>
 
-<!-- CONTACT -->
+<!-- CONTACT (تم تحديث الأيقونات إلى لوجو التطبيقات الرسمي) -->
 <div class="contact-section" id="contact">
   <div class="section-label">تواصل معنا</div>
   <h2 class="section-title">احجز وقتك الآن</h2>
@@ -537,22 +541,30 @@
 
   <div class="contact-cards">
     <a href="https://www.instagram.com/julie_home_chalet/" target="_blank" class="contact-card">
-      <div class="contact-card-icon">📸</div>
+      <div class="contact-card-icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" class="contact-card-logo">
+      </div>
       <span class="contact-card-label">إنستغرام</span>
       <span class="contact-card-value">@julie_home_chalet</span>
     </a>
     <a href="https://wa.me/962796661155" target="_blank" class="contact-card">
-      <div class="contact-card-icon">💬</div>
+      <div class="contact-card-icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" class="contact-card-logo">
+      </div>
       <span class="contact-card-label">واتساب</span>
       <span class="contact-card-value">تواصل فوري</span>
     </a>
     <a href="https://www.facebook.com/JHchalet" target="_blank" class="contact-card">
-      <div class="contact-card-icon">👥</div>
+      <div class="contact-card-icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" class="contact-card-logo">
+      </div>
       <span class="contact-card-label">فيسبوك</span>
       <span class="contact-card-value">Julie Home</span>
     </a>
     <a href="mailto:jhchalet.info@gmail.com" class="contact-card">
-      <div class="contact-card-icon">✉️</div>
+      <div class="contact-card-icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" class="contact-card-logo">
+      </div>
       <span class="contact-card-label">البريد الإلكتروني</span>
       <span class="contact-card-value">راسلنا الآن</span>
     </a>
@@ -631,7 +643,7 @@
     observer.observe(el);
   });
 
-  // التحكم بالنايبار أثناء السكرول (يختفي لأسفل ويظهر لأعلى)
+  // التحكم بالنايببار أثناء السكرول (يختفي لأسفل ويظهر لأعلى)
   let lastScrollY = window.scrollY;
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
