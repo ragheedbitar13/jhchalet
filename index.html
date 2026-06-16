@@ -30,6 +30,47 @@
     overflow-x: hidden;
   }
 
+  /* ─── انميشن انتقال الصفحة الجديد (باللوجو فقط) ─── */
+  .page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(254, 252, 249, 0.95); /* خلفية بيضاء دافئة ناعمة شبه شفافة */
+    backdrop-filter: blur(8px); /* تأثير ضبابي للخلفية */
+    z-index: 9999;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .transition-logo {
+    width: 160px; /* حجم اللوجو أثناء الانتقال */
+    height: 160px;
+    object-fit: contain;
+    transform: scale(1);
+    transition: transform 0.5s ease-in-out;
+    animation: logoPulse 1.5s infinite ease-in-out;
+  }
+
+  /* عند اختفاء شاشة الانتقال */
+  .page-transition-overlay.fade-out {
+    opacity: 0;
+  }
+  .page-transition-overlay.fade-out .transition-logo {
+    transform: scale(0.8);
+  }
+
+  /* تأثير نبض خفيف للوجو ليعطي إيحاء بالتحميل */
+  @keyframes logoPulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.08); opacity: 1; }
+  }
+
   /* NAV */
   nav {
     position: fixed;
@@ -62,6 +103,7 @@
 
   .nav-links {
     display: flex;
+    align-items: center;
     gap: 32px;
     list-style: none;
   }
@@ -89,17 +131,22 @@
   .nav-links a:hover { color: var(--copper); }
   .nav-links a:hover::after { width: 100%; }
 
-  .nav-cta {
+  .nav-links li .nav-cta {
     background: var(--green-dark);
-    color: white !important;
+    color: white;
     padding: 10px 22px;
     border-radius: 6px;
-    font-weight: 600 !important;
-    transition: background 0.2s !important;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
   }
 
-  .nav-cta:hover { background: var(--green-mid) !important; color: white !important; }
-  .nav-cta::after { display: none !important; }
+  .nav-links li .nav-cta:hover { 
+    background: var(--green-mid); 
+    color: white;
+    transform: translateY(-1px);
+  }
+  
+  .nav-links li .nav-cta::after { display: none; }
 
   /* HERO */
   .hero {
@@ -119,7 +166,6 @@
       url('https://i.ibb.co/BKSN7swh/1232344.jpg') center/cover no-repeat;
   }
 
-  /* use uploaded pool photo as overlay via CSS - we'll embed as data later */
   .hero-content {
     position: relative;
     text-align: center;
@@ -281,11 +327,6 @@
     margin: 0 auto;
   }
 
-  .section-full {
-    max-width: 100%;
-    padding: 90px 0;
-  }
-
   .section-label {
     font-size: 12px;
     letter-spacing: 3px;
@@ -402,7 +443,7 @@
     transform: scale(1.04);
   }
 
-  .gallery-overlay {
+ .gallery-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(26,74,46,0.5) 0%, transparent 50%);
@@ -445,9 +486,7 @@
   .amenity-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 3px;
     background: linear-gradient(90deg, var(--copper), var(--sky));
     transform: scaleX(0);
@@ -459,31 +498,12 @@
     transform: translateY(-4px);
   }
 
-  .amenity-card:hover::before {
-    transform: scaleX(1);
-  }
+  .amenity-card:hover::before { transform: scaleX(1); }
 
-  .amenity-icon {
-    font-size: 40px;
-    margin-bottom: 16px;
-    display: block;
-  }
+  .amenity-icon { font-size: 40px; margin-bottom: 16px; display: block; }
+  .amenity-name { font-weight: 600; font-size: 17px; color: var(--green-dark); margin-bottom: 8px; }
+  .amenity-desc { font-size: 14px; color: var(--gray); line-height: 1.6; }
 
-  .amenity-name {
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 600;
-    font-size: 17px;
-    color: var(--green-dark);
-    margin-bottom: 8px;
-  }
-
-  .amenity-desc {
-    font-size: 14px;
-    color: var(--gray);
-    line-height: 1.6;
-  }
-
-  /* DIVIDER */
   .divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--copper), transparent);
@@ -498,20 +518,9 @@
     color: white;
   }
 
-  .contact-section .section-label {
-    color: var(--copper-light);
-  }
-
-  .contact-section .section-title {
-    color: white;
-    margin: 0 auto 16px;
-  }
-
-  .contact-section .section-desc {
-    color: rgba(255,255,255,0.7);
-    margin: 0 auto 56px;
-    text-align: center;
-  }
+  .contact-section .section-label { color: var(--copper-light); }
+  .contact-section .section-title { color: white; margin: 0 auto 16px; }
+  .contact-section .section-desc { color: rgba(255,255,255,0.7); margin: 0 auto 56px; text-align: center; }
 
   .contact-cards {
     display: flex;
@@ -546,30 +555,15 @@
   }
 
   .contact-card-icon {
-    font-size: 36px;
-    width: 68px;
-    height: 68px;
+    font-size: 36px; width: 68px; height: 68px;
     background: rgba(193,127,90,0.2);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
   }
 
-  .contact-card-label {
-    font-size: 13px;
-    opacity: 0.65;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
+  .contact-card-label { font-size: 13px; opacity: 0.65; }
+  .contact-card-value { font-size: 15px; font-weight: 600; text-align: center; }
 
-  .contact-card-value {
-    font-size: 15px;
-    font-weight: 600;
-    text-align: center;
-  }
-
-  /* FOOTER */
   footer {
     background: #111;
     padding: 32px 40px;
@@ -578,31 +572,15 @@
     font-size: 13px;
   }
 
-  footer a {
-    color: var(--copper-light);
-    text-decoration: none;
-  }
+  footer a { color: var(--copper-light); text-decoration: none; }
 
-  /* RESPONSIVE */
   @media (max-width: 768px) {
     nav { padding: 14px 20px; }
     .nav-links { display: none; }
-
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
     .about-images { height: 320px; }
-
-    .gallery-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .gallery-item:first-child {
-      grid-column: 1 / -1;
-    }
-
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:first-child { grid-column: 1 / -1; }
     section { padding: 60px 20px; }
     .gallery-section { padding: 60px 20px; }
     .contact-section { padding: 60px 20px; }
@@ -619,63 +597,46 @@
     align-items: center;
     justify-content: center;
   }
-
   .lightbox.open { display: flex; }
-
-  .lightbox img {
-    max-width: 90vw;
-    max-height: 85vh;
-    object-fit: contain;
-    border-radius: 8px;
-  }
-
+  .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 8px; }
   .lightbox-close {
-    position: absolute;
-    top: 24px;
-    left: 24px;
-    font-size: 32px;
-    color: white;
-    cursor: pointer;
-    background: rgba(255,255,255,0.1);
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
+    position: absolute; top: 24px; left: 24px; font-size: 32px; color: white; cursor: pointer;
+    background: rgba(255,255,255,0.1); border-radius: 50%; width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
   }
-
-  .lightbox-close:hover { background: rgba(255,255,255,0.2); }
 </style>
 </head>
 <body>
 
+<!-- شاشة الانتقال الذكية مع لوجو المزرعة المفرغ -->
+<div class="page-transition-overlay" id="pageOverlay">
+  <img src="Gemini_Generated_Image_kfj9c9kfj9c9kfj9.png" alt="Julie Home" class="transition-logo">
+</div>
+
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <img src="https://i.ibb.co/Q724CFgC/Gemini-Generated-Image-kfj9c9kfj9c9kfj9.png" alt="Julie Home Logo">
-</a>
+    <img src="Gemini_Generated_Image_kfj9c9kfj9c9kfj9.png" alt="Julie Home Logo">
   </a>
   <ul class="nav-links">
     <li><a href="#about">عن الشاليه</a></li>
     <li><a href="#gallery">الصور</a></li>
     <li><a href="#amenities">المميزات</a></li>
-    <li><a href="#contact" class="nav-cta">تواصل معنا</a></li>
+    <li><a href="#contact">تواصل معنا</a></li>
+    <li><a href="julie_home_booking.html" class="nav-cta transition-link">احجز الآن</a></li>
   </ul>
 </nav>
-
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <img src="Gemini_Generated_Image_kfj9c9kfj9c9kfj9.png" alt="Julie Home" class="hero-logo" onerror="this.style.display='none'">
+    
     <div class="hero-badge">✦ شاليه فاخر للإيجار ✦</div>
     <h1>Julie Home</h1>
     <p>استمتع بتجربة إقامة لا تُنسى — مسبح خاص، شواء، وأجواء تجمع العائلة</p>
     <div class="hero-buttons">
-      <a href="#contact" class="btn-primary">احجز الآن</a>
+      <a href="julie_home_booking.html" class="btn-primary transition-link">احجز الآن</a>
       <a href="#gallery" class="btn-outline">شاهد الصور</a>
     </div>
   </div>
@@ -733,16 +694,6 @@
         يضم الشاليه مسبحاً خاصاً رائعاً، منطقة شواء احترافية، غرف نوم مريحة مكيفة،
         وصالة مجهزة بأفضل المعدات — كل ما تحتاجه لقضاء وقت لا يُنسى.
       </p>
-      <div style="margin-top: 32px; display: flex; gap: 40px; flex-wrap: wrap;">
-        <div>
-          <div style="font-size: 2rem; font-weight: 700; color: var(--copper); font-family: 'Playfair Display', serif;">★★★★★</div>
-          <div style="font-size: 14px; color: var(--gray); margin-top: 4px;">تقييم ممتاز</div>
-        </div>
-        <div>
-          <div style="font-size: 2rem; font-weight: 700; color: var(--green-dark); font-family: 'Playfair Display', serif;">100%</div>
-          <div style="font-size: 14px; color: var(--gray); margin-top: 4px;">خصوصية تامة</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -782,7 +733,6 @@
     </div>
   </div>
 </div>
-
 <!-- AMENITIES -->
 <section id="amenities">
   <div style="text-align: center; margin-bottom: 0;">
@@ -857,16 +807,38 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Julie Home — جميع الحقوق محفوظة &nbsp;|&nbsp; <a href="https://www.instagram.com/julie_home_chalet/">@julie_home_chalet</a></p>
+  <p>© 2026 Julie Home — جميع الحقوق محفوظة</p>
 </footer>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <div class="lightbox-close" onclick="closeLightbox()">✕</div>
   <img id="lightbox-img" src="" alt="">
 </div>
 
 <script>
+  // تأثير تلاشي شاشة الانتقال عند تحميل الصفحة الرئيسية
+  window.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('pageOverlay');
+    setTimeout(() => {
+      overlay.classList.add('fade-out');
+    }, 400); // مهلة قصيرة لإعطاء فخامة للحركة
+  });
+
+  // التقاط حدث الانتقال لصفحة الحجز لإظهار اللوجو بسلاسة مجدداً
+  document.querySelectorAll('.transition-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetUrl = this.getAttribute('href');
+      const overlay = document.getElementById('pageOverlay');
+      
+      overlay.classList.remove('fade-out');
+      
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 500);
+    });
+  });
+
   // Navbar scroll effect
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
@@ -877,19 +849,12 @@
     const img = el.querySelector('img');
     document.getElementById('lightbox-img').src = img.src;
     document.getElementById('lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
   }
-
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
   }
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeLightbox();
-  });
-
-  // Smooth reveal on scroll
+ // Smooth reveal on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -905,6 +870,7 @@
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
   });
+
 </script>
 </body>
 </html>
