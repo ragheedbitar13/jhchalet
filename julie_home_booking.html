@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Julie Home - الحجوزات</title>
-<link rel="icon" type="image/png" href="https://i.ibb.co/kg5d7Zrj/Gemini-Generated-Image-kfj9c9kfj9c9kfj9-removebg-preview.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -109,7 +108,18 @@ nav.nav-scrolled .nav-logo img { transform: scale(0.9); }
 .hero-left h1 {
   font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 3rem); line-height: 1.25; margin-bottom: 20px;
 }
-.hero-left > p { opacity: 0.75; font-size: 16px; line-height: 1.8; margin-bottom: 32px; }
+.hero-left > p { opacity: 0.75; font-size: 16px; line-height: 1.8; margin-bottom: 12px; }
+
+/* ميزة التنبيه باللون الأحمر */
+.hero-notice {
+  color: #FF6B6B;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 32px;
+}
 
 /* BOOKING STEPS */
 .booking-steps {
@@ -223,7 +233,8 @@ footer { background: #111; padding: 28px 40px; text-align: center; color: rgba(2
 
   .booking-hero { grid-template-columns: 1fr; margin-top: 80px; }
   .hero-left { padding: 36px 20px; min-height: auto; }
-  .hero-left > p { margin-bottom: 24px; }
+  .hero-left > p { margin-bottom: 8px; }
+  .hero-notice { margin-bottom: 24px; }
 
   .booking-steps { gap: 8px; }
   .step-item { padding: 11px 14px; }
@@ -238,7 +249,6 @@ footer { background: #111; padding: 28px 40px; text-align: center; color: rgba(2
 <!-- NAV -->
 <nav id="mainNav">
   <a href="index.html" class="nav-logo">
-    <!-- تم تحديث رابط اللوغو الجديد هنا بنجاح -->
     <img src="https://i.ibb.co/kg5d7Zrj/Gemini-Generated-Image-kfj9c9kfj9c9kfj9-removebg-preview.png" alt="Julie Home">
     <span>Julie Home</span>
   </a>
@@ -265,6 +275,12 @@ footer { background: #111; padding: 28px 40px; text-align: center; color: rgba(2
     <div class="hero-badge">✦ احجز الآن ✦</div>
     <h1>ليلة لا تُنسى تبدأ من هنا</h1>
     <p>احجز شاليه Julie Home واستمتع بمسبح خاص، شواء، وأجواء عائلية دافئة ومليئة بالخصوصية.</p>
+    
+    <!-- الجملة الجديدة باللون الأحمر للتنبيه -->
+    <div class="hero-notice">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+      يرجى قراءة التعليمات قبل الحجز :
+    </div>
 
     <div class="booking-steps">
       <div class="step-item">
