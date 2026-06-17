@@ -12,11 +12,11 @@
   :root {
     --copper: #C17F5A;
     --copper-light: #D4956E;
-    --green-dark: #1A4A2E;
-    --green-mid: #2E6B45;
+    --green-dark: #4A6B53;
+    --green-mid: #4A6B53;
     --sky: #7EC8D4;
-    --cream: #FAF7F2;
-    --warm-white: #FEFCF9;
+    --cream: #F4F1EA;
+    --warm-white: #F4F1EA;
     --charcoal: #2C2C2C;
     --gray: #6B6B6B;
     --gold: #B8924A;
@@ -38,7 +38,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(254, 252, 249, 0.95);
+    background: rgba(244, 241, 234, 0.95);
     backdrop-filter: blur(8px);
     z-index: 9999;
     pointer-events: none;
@@ -75,7 +75,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 40px;
-    background: rgba(255,255,255,0.92);
+    background: rgba(244,241,234,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(193,127,90,0.15);
     transition: box-shadow 0.3s, transform 0.35s ease, opacity 0.35s ease;
@@ -163,7 +163,7 @@
     position: absolute;
     inset: 0;
     background: 
-      linear-gradient(to bottom, rgba(26,74,46,0.55) 0%, rgba(26,74,46,0.3) 50%, rgba(0,0,0,0.6) 100%),
+      linear-gradient(to bottom, rgba(74,107,83,0.55) 0%, rgba(74,107,83,0.3) 50%, rgba(0,0,0,0.6) 100%),
       url('https://i.ibb.co/BKSN7swh/1232344.jpg') center/cover no-repeat;
   }
 
@@ -261,7 +261,7 @@
   .gallery-item img { width: 100%; height: 320px; object-fit: cover; transition: transform 0.4s ease; display: block; }
   .gallery-item:first-child img { height: 320px; }
   .gallery-item:hover img { transform: scale(1.04); }
-  .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,74,46,0.5) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 20px; }
+  .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(74,107,83,0.5) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 20px; }
   .gallery-item:hover .gallery-overlay { opacity: 1; }
   .gallery-overlay span { color: white; font-weight: 500; font-size: 15px; }
 
@@ -347,13 +347,13 @@
 
 <!-- شاشة الانتقال الذكية -->
 <div class="page-transition-overlay" id="pageOverlay">
-  <img src="https://i.ibb.co/Q724CFgC/Gemini-Generated-Image-kfj9c9kfj9c9kfj9.png" alt="Julie Home" class="transition-logo">
+  <img src="https://i.ibb.co/kg5d7Zrj/Gemini-Generated-Image-kfj9c9kfj9c9kfj9-removebg-preview.png" alt="Julie Home" class="transition-logo">
 </div>
 
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <img src="https://i.ibb.co/Q724CFgC/Gemini-Generated-Image-kfj9c9kfj9c9kfj9.png" alt="Julie Home Logo">
+    <img src="https://i.ibb.co/kg5d7Zrj/Gemini-Generated-Image-kfj9c9kfj9c9kfj9-removebg-preview.png" alt="Julie Home Logo">
   </a>
   
   <!-- زر الهامبرغر للتلفون -->
@@ -380,9 +380,9 @@
     <h1>Julie Home</h1>
     <p>استمتع بتجربة إقامة لا تُنسى — مسبح خاص، شواء، وأجواء تجمع العائلة</p>
     <div class="hero-buttons">
-      <a href="julie_home_booking.html" class="btn-primary transition-link">احجز الآن</a>
-      <a href="#gallery" class="btn-outline">شاهد الصور</a>
-      <a href="https://maps.app.goo.gl/whp2ih3kAC4UhD3r6" target="_blank" class="btn-map">موقعنا</a>
+      <a href="julie_home_booking.html" class="btn-primary transition-link"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:8px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>احجز الآن</a>
+      <a href="#gallery" class="btn-outline"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:8px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>شاهد الصور</a>
+      <a href="https://maps.app.goo.gl/whp2ih3kAC4UhD3r6" target="_blank" class="btn-map"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:8px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>موقعنا</a>
     </div>
   </div>
   <div class="scroll-hint">
