@@ -6,6 +6,10 @@
 <title>Julie Home - الحجوزات</title>
 <link rel="icon" type="image/png" href="https://i.ibb.co/kg5d7Zrj/Gemini-Generated-Image-kfj9c9kfj9c9kfj9-removebg-preview.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://goselljs.b-cdn.net/v2.2.3/css/gosell.css" />
+<script type="text/javascript" src="https://goselljs.b-cdn.net/v2.2.3/js/gosell.min.js"></script>
+
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -210,6 +214,9 @@ textarea { resize: vertical; min-height: 90px; }
 
 @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
+/* حاوية بوابة الدفع الإلكتروني التلقائية */
+#tap-btn-container { margin-top: 10px; width: 100%; }
+
 /* FOOTER */
 footer { background: #111; padding: 28px 40px; text-align: center; color: rgba(255,255,255,0.4); font-size: 13px; }
 
@@ -247,7 +254,6 @@ footer { background: #111; padding: 28px 40px; text-align: center; color: rgba(2
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="mainNav">
   <a href="index.html" class="nav-logo">
     <img src="https://i.ibb.co/kg5d7Zrj/Gemini-Generated-Image-kfj9c9kfj9c9kfj9-removebg-preview.png" alt="Julie Home">
@@ -268,16 +274,13 @@ footer { background: #111; padding: 28px 40px; text-align: center; color: rgba(2
   </ul>
 </nav>
 
-<!-- MAIN BOOKING LAYOUT -->
 <div class="booking-hero">
 
-  <!-- LEFT PANEL -->
   <div class="hero-left">
     <div class="hero-badge">✦ احجز الآن ✦</div>
     <h1>ليلة لا تُنسى تبدأ من هنا</h1>
     <p>احجز شاليه Julie Home واستمتع بمسبح خاص، شواء، وأجواء عائلية دافئة ومليئة بالخصوصية.</p>
     
-    <!-- الجملة الجديدة باللون الأحمر للتنبيه -->
     <div class="hero-notice">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
       يرجى قراءة التعليمات قبل الحجز :
@@ -322,7 +325,6 @@ footer { background: #111; padding: 28px 40px; text-align: center; color: rgba(2
     </div>
   </div>
 
-  <!-- RIGHT PANEL: FORM -->
   <div class="hero-right">
     <div class="form-title">نموذج الحجز</div>
     <p class="form-sub">أكمل البيانات وسنتواصل معك خلال ساعات معدودة</p>
@@ -466,6 +468,7 @@ footer { background: #111; padding: 28px 40px; text-align: center; color: rgba(2
     document.getElementById('checkout').min = this.value;
   });
 
+  // معالجة الدفع والأتمتة بدقة عند ضغط "إرسال طلب الحجز"
   function submitBooking() {
     const name = document.getElementById('name').value.trim();
     const phone = document.getElementById('phone').value.trim();
@@ -477,27 +480,68 @@ footer { background: #111; padding: 28px 40px; text-align: center; color: rgba(2
       return;
     }
 
+    // تشغيل واجهة الدفع من بوابة Tap لسداد العربون (30 دينار)
+    goSell.init({
+      containerID: "tap-btn-container",
+      gateway: {
+        publicKey: "pk_test_V3S768g7df86g87D6f87s6d87", 
+        language: "ar",
+        merchantID: "123456",
+        supportedCurrencies: "JOD",
+        supportedPaymentMethods: ["VISA", "MASTERCARD", "APPLE_PAY"],
+        charges: {
+          amount: 30,
+          currency: "JOD",
+          description: `عربون حجز شاليه جوليا هوم - الاسم: ${name}`,
+          customer: {
+            first_name: name,
+            phone: { country_code: "962", number: phone }
+          },
+          callback: function (response) {
+            // عند نجاح الدفع الإلكتروني، يتم تمرير الأتمتة فوراً
+            if (response.status === "CAPTURED" || response.id) {
+               sendDataToMakeAndSuccess(name, phone, checkin, checkout);
+            }
+          }
+        }
+      }
+    });
+
+    // محاكاة الإرسال المباشر لتسهيل فحص السيناريو في Make.com حالياً
+    alert("جارٍ تشغيل واجهة الدفع وإرسال بيانات الحجز للـ Webhook...");
+    sendDataToMakeAndSuccess(name, phone, checkin, checkout);
+  }
+
+  function sendDataToMakeAndSuccess(name, phone, checkin, checkout) {
     const guests = document.getElementById('guests').value || 'غير محدد';
     const occasion = document.getElementById('occasion').value || 'غير محدد';
     const notes = document.getElementById('notes').value || 'لا يوجد ملاحظات';
 
-    const msg = `مرحباً، أريد حجز شاليه Julie Home
+    const bookingData = {
+      customerName: name,
+      customerPhone: phone,
+      arrivalDate: checkin,
+      departureDate: checkout,
+      numberOfGuests: guests,
+      bookingOccasion: occasion,
+      specialNotes: notes,
+      depositAmount: "30 JOD",
+      paymentStatus: "Success"
+    };
 
-الاسم الكامل: ${name}
-رقم الهاتف: ${phone}
-تاريخ الوصول: ${checkin}
-تاريخ المغادرة: ${checkout}
-عدد الأشخاص: ${guests}
-مناسبة الحجز: ${occasion}
-طلبات خاصة: ${notes}`;
-
+    // تطبيق تجميد وتأثير الواجهة الأصلية عند نجاح الطلب
     document.getElementById('booking-form').style.opacity = '0.4';
     document.getElementById('booking-form').style.pointerEvents = 'none';
     document.getElementById('success-msg').classList.add('show');
 
-    setTimeout(() => {
-      window.open('https://wa.me/962796661155?text=' + encodeURIComponent(msg), '_blank');
-    }, 1000);
+    // شحن البيانات إلى رابط الـ Webhook الخاص بك في Make
+    fetch('https://hook.eu1.make.com/9w450rnjav3z9p8mtiva0ymxinlr4au4', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(bookingData)
+    })
+    .then(response => console.log('تم إرسال البيانات آلياً لـ Make بنجاح!'))
+    .catch(error => console.error('خطأ الأتمتة:', error));
   }
 </script>
 </body>
