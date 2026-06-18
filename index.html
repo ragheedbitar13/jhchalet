@@ -345,18 +345,15 @@
 </head>
 <body>
 
-<!-- شاشة الانتقال الذكية -->
 <div class="page-transition-overlay" id="pageOverlay">
   <img src="https://i.ibb.co/kg5d7Zrj/Gemini-Generated-Image-kfj9c9kfj9c9kfj9-removebg-preview.png" alt="Julie Home" class="transition-logo">
 </div>
 
-<!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
     <img src="https://i.ibb.co/kg5d7Zrj/Gemini-Generated-Image-kfj9c9kfj9c9kfj9-removebg-preview.png" alt="Julie Home Logo">
   </a>
   
-  <!-- زر الهامبرغر للتلفون -->
   <button class="menu-toggle" id="menuToggle">
     <span></span>
     <span></span>
@@ -372,7 +369,6 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
@@ -391,7 +387,6 @@
   </div>
 </div>
 
-<!-- FEATURES STRIP -->
 <div class="features-strip">
   <div class="feature-item">
     <span class="feature-icon">🏊</span>
@@ -404,7 +399,7 @@
     <span class="feature-icon">🔥</span>
     <div class="feature-text">
       <span class="feature-label">منطقة شواء</span>
-      <span class="feature-value">مجهة بالكامل</span>
+      <span class="feature-value">مجهزة بالكامل</span>
     </div>
   </div>
   <div class="feature-item">
@@ -423,7 +418,6 @@
   </div>
 </div>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="about-grid">
     <div class="about-images">
@@ -455,7 +449,6 @@
 
 <div class="divider"></div>
 
-<!-- GALLERY -->
 <div class="gallery-section" id="gallery">
   <div class="gallery-header">
     <div class="section-label">معرض الصور</div>
@@ -491,7 +484,6 @@
 
 <div class="divider"></div>
 
-<!-- AMENITIES -->
 <section id="amenities">
   <div style="text-align: center;">
     <div class="section-label">ما يميزنا</div>
@@ -533,7 +525,6 @@
 
 <div class="divider"></div>
 
-<!-- CONTACT (تم تحديث الأيقونات إلى لوجو التطبيقات الرسمي) -->
 <div class="contact-section" id="contact">
   <div class="section-label">تواصل معنا</div>
   <h2 class="section-title">احجز وقتك الآن</h2>
@@ -542,28 +533,28 @@
   <div class="contact-cards">
     <a href="https://www.instagram.com/julie_home_chalet/" target="_blank" class="contact-card">
       <div class="contact-card-icon">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" class="contact-card-logo">
+        <img src="instagram (1).png" alt="Instagram" class="contact-card-logo">
       </div>
       <span class="contact-card-label">إنستغرام</span>
       <span class="contact-card-value">@julie_home_chalet</span>
     </a>
     <a href="https://wa.me/962796661155" target="_blank" class="contact-card">
       <div class="contact-card-icon">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" class="contact-card-logo">
+        <img src="whatsapp (1).png" alt="WhatsApp" class="contact-card-logo">
       </div>
       <span class="contact-card-label">واتساب</span>
       <span class="contact-card-value">تواصل فوري</span>
     </a>
     <a href="https://www.facebook.com/JHchalet" target="_blank" class="contact-card">
       <div class="contact-card-icon">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" class="contact-card-logo">
+        <img src="facebook (1).png" alt="Facebook" class="contact-card-logo">
       </div>
       <span class="contact-card-label">فيسبوك</span>
       <span class="contact-card-value">Julie Home</span>
     </a>
     <a href="mailto:jhchalet.info@gmail.com" class="contact-card">
       <div class="contact-card-icon">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" class="contact-card-logo">
+        <img src="gmail (1).png" alt="Gmail" class="contact-card-logo">
       </div>
       <span class="contact-card-label">البريد الإلكتروني</span>
       <span class="contact-card-value">راسلنا الآن</span>
@@ -575,7 +566,6 @@
   <p>© 2026 Julie Home — جميع الحقوق محفوظة</p>
 </footer>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <div class="lightbox-close">×</div>
   <img id="lightbox-img" src="" alt="">
@@ -643,12 +633,11 @@
     observer.observe(el);
   });
 
-  // التحكم بالنايببار أثناء السكرول (يختفي لأسفل ويظهر لأعلى)
+  // التحكم بالنايببار أثناء السكرول
   let lastScrollY = window.scrollY;
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     const currentY = window.scrollY;
-    // نتأكد أن القائمة ليست مفتوحة أثناء السكرول
     if (!navLinks.classList.contains('active')) {
       if (currentY > lastScrollY && currentY > 80) {
         navbar.classList.add('nav-hidden');
